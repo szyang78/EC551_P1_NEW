@@ -54,7 +54,7 @@ public class Literals {
                 if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
                 {
                 term_compare[0][0]="X";
-                term_compare[0][1]="X";
+                term_compare[1][0]="X";
                 }
                 break;
                 case "b,b'":
@@ -64,7 +64,7 @@ public class Literals {
                     term_2_check_2=StringUtils.contains(term_2,"b");
                     if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
                     {
-                        term_compare[1][0]="X";
+                        term_compare[0][1]="X";
                         term_compare[1][1]="X";
                     }
                     break;
@@ -75,8 +75,8 @@ public class Literals {
                     term_2_check_2=StringUtils.contains(term_2,"c");
                     if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
                     {
-                        term_compare[2][0]="X";
-                        term_compare[2][1]="X";
+                        term_compare[0][2]="X";
+                        term_compare[1][2]="X";
                     }
                     break;
                 case "d,d'":
@@ -86,8 +86,8 @@ public class Literals {
                     term_2_check_2=StringUtils.contains(term_2,"d");
                     if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
                     {
-                        term_compare[3][0]="X";
-                        term_compare[3][1]="X";
+                        term_compare[0][3]="X";
+                        term_compare[1][3]="X";
                     }
                     break;
             }

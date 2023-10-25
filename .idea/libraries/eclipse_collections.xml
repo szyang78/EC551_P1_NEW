@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="eclipse.collections" type="repository">
+    <properties maven-id="org.eclipse.collections:eclipse-collections:12.0.0.M3" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/eclipse-collections-12.0.0.M3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/eclipse-collections-api-12.0.0.M3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/eclipse-collections-12.0.0.M3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/eclipse-collections-api-12.0.0.M3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/eclipse-collections-12.0.0.M3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/eclipse-collections-api-12.0.0.M3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
