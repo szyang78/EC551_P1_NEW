@@ -2,6 +2,19 @@ public class Gate_and{
 
     Gate_and gate_and;
 
+    public static String AND_2_byTerm(String term1,String term2){
+        return "("+term1+"*"+term2+")";
+    }
+
+    public static String AND_3_byTerm(String term1,String term2,String term3){
+        return "("+term1+"*"+term2+"*"+term3+")";
+    }
+
+    public static String AND_4_byTerm(String term1,String term2,String term3,String term4){
+        return "("+term1+"*"+term2+"*"+term3+"*"+term4+")";
+    }
+
+
     public static int[] AND_2(int[] i1,int[] i2){
         int[] outcome_2 = new int[4];
 

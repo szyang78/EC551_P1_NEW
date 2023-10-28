@@ -22,4 +22,41 @@ public class Split_Command {
             System.out.println(Arrays.toString(literal));
             return literal;
         }
+
+        public static String[] scan_command(String command){
+
+            return command.split(",");
+        }
+
+        public static String[] scan_SOP(String SOP){
+
+            return SOP.split(",");
+
+        }
+
+        public static String scan_Gate(String[] command){
+            for(int i =0;i<command.length;i++){
+                switch(command[0]){
+                    case "AND2":
+                        return Gate_and.AND_2_byTerm(command[1],command[2]);
+                    case "AND3":
+                        return Gate_and.AND_3_byTerm(command[1],command[2],command[3]);
+                    case "AND4":
+                        return Gate_and.AND_4_byTerm(command[1],command[2],command[3],command[4]);
+                    case "OR2":
+                        break;
+                    case "OR3":
+                        break;
+                    case "OR4":
+                        break;
+                    case "NAND":
+                        break;
+                    case "NOR":
+                        break;
+                    case "XOR":
+                        break;
+                }
+            }
+            return " ";
+        }
 }

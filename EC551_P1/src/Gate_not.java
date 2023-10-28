@@ -7,6 +7,10 @@ public class Gate_not {
         return outcome;
     }
 
+    public static String invert_term(String term){
+        return term+"'";
+    }
+
     public static int invert_1_digit(int i){
         return ~i;
     }
