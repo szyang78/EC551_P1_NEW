@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Canonical_SOP{
 
     public static String SOP_generation_byIndex(int[] index){
@@ -15,6 +17,20 @@ public class Canonical_SOP{
 
         }
         return sb.toString();
+    }
+
+    public static String SOP_generation_byTerm(String term){
+        String[] literals_term = Split_Command.split_SOP(term);
+
+
+        String[][] separated_term = new String[literals_term.length][4];
+        for(int i =0;i<separated_term.length;i++){
+            separated_term[i]=Split_Command.split_SOP_literal(literals_term[i]);
+            System.out.println(literals_term[i]);
+        }
+
+
+        return Arrays.toString(separated_term[1]);
     }
 
     public static String SOP_onset(int[] index){

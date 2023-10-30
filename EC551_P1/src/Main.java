@@ -16,6 +16,24 @@ public class Main {
 
       String gate_form = args[1];
 
+        String[] inter_term = Split_Command.split_SOP(args[1]);
+        String[] literals_term = Split_Command.split_SOP(args[1]);
+
+
+
+        String[][] separated_literals_term = new String[literals_term.length][4];
+        for(int i =0;i<separated_literals_term.length;i++){
+            separated_literals_term[i]=Split_Command.split_SOP_literal(literals_term[i]);
+            System.out.println(literals_term[i]);
+        }
+        for(int i =0;i<separated_literals_term.length;i++){
+            for(int j=0;j<separated_literals_term[i].length;j++){
+            System.out.println(separated_literals_term[i][j]);
+            }
+        }
+
+        System.out.println(Canonical_SOP.SOP_generation_byTerm(args[1]));
+
 
 /*
         int[] i1 = new int[]{0, 1, 1, 0};

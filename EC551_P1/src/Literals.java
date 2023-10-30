@@ -7,13 +7,41 @@ import java.util.regex.Pattern;
 
 public class Literals {
 
-    public static String[] getLiteral(String term){
+    public static String[] getLiteral_MIN_MAX(String term){
 
         String sb_1 = StringUtils.substringBetween(term,"(",")");
         String[] literal= sb_1.split("\\*");
         System.out.println(Arrays.toString(literal));
 
         return literal;
+    }
+
+    public static String[] getLiteral_SOP(String term){
+        String sb_1 = StringUtils.substringBetween(term,"(",")");
+        String[] literal= sb_1.split("\\*");
+        String[] returned_literal = new String[4];
+
+        for (int i=0;i<literal.length;i++){
+            if(Objects.equals(literal[i], "a") || Objects.equals(literal[i], "a'")){
+                returned_literal[0]=literal[i];
+            }
+            if(Objects.equals(literal[i], "b") || Objects.equals(literal[i], "b'")){
+                returned_literal[1]=literal[i];
+            }
+            if(Objects.equals(literal[i], "c") || Objects.equals(literal[i], "c'")){
+                returned_literal[2]=literal[i];
+            }
+            if(Objects.equals(literal[i], "c") || Objects.equals(literal[i], "c'")){
+                returned_literal[3]=literal[i];
+            }
+        }
+        for(int i=0;i<returned_literal.length;i++){
+            if(returned_literal[i]==null){
+                returned_literal[i]="X";
+            }
+        }
+
+        return returned_literal;
     }
 
     public static String simplifyLiteral(String[] term1,String[] term2){
