@@ -13,8 +13,8 @@ public class Split_Command {
 
 
         public static String[] split_SOP_literal(String SOP_term) {
-            String sb_1 = StringUtils.substringBetween(SOP_term,"(",")");
-            return sb_1.split("\\*");
+
+            return SOP_term.split("\\*");
         }
         public static String[] split_POS(String POS){
             return POS.split("\\*");

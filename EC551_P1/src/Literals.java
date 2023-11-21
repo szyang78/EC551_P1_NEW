@@ -43,9 +43,64 @@ public class Literals {
 
         return returned_literal;
     }
+    public static String[] simplify_1litdiffSOP(String[] term1,String[] term2){
+        StringBuilder sb = new StringBuilder();
+        String[] pattern = new String[]{"a,a'","b,b'","c,c'","d,d'"};
+        String[] compared_term = new String[4];
+        for(int i=0;i<term1.length;i++){
+            if(Objects.equals(term1[i], term2[i])){
+                compared_term[i]=term1[i];
+            }
+            else{
+                compared_term[i]="X";
+            }
+        }
+        return new String[]{compared_term[0],compared_term[1],compared_term[2],compared_term[3]};
+    }
+
+    public static boolean isSameSOP(String[] term1,String[] term2){
+        boolean isSameSOP = true;
+        for(int i =0;i<term1.length;i++) {
+            if (!Objects.equals(term1[i], term2[i])) {
+                return false;
+            }
+        }
+
+        return isSameSOP;
+    }
+    public static String lit_to_SOP(String[] term){
+        StringBuilder sb = new StringBuilder();
+
+        for(int i =0;i<term.length;i++){
+            if(!Objects.equals(term[i], "X")){
+                sb.append(term[i]);
+                if(i<term.length-1){
+                    sb.append("*");
+                }
+            }
+        }
+        return "("+sb.toString()+")";
+    }
+    public static boolean is1litdiffSOP(String[] term1,String[] term2){
+        boolean is1litdiff;
+        int litdiff_num=0;
+        for(int i=0;i<term1.length;i++){
+            if(!Objects.equals(term1[i], term2[i])){
+                litdiff_num+=1;
+            }
+        }
+        if(litdiff_num==1){
+            is1litdiff=true;
+        }
+        else{
+            is1litdiff=false;
+        }
+        return is1litdiff;
+    }
 
     public static String simplifyLiteral(String[] term1,String[] term2){
         StringBuilder sb = new StringBuilder();
+        String[] pattern = new String[]{"a,a'","b,b'","c,c'","d,d'"};
         String[][] term_compare = new String[4][4];
         StringBuilder term_1_sb = new StringBuilder();
         StringBuilder term_2_sb = new StringBuilder();
@@ -65,7 +120,7 @@ public class Literals {
 
         String term_1 = term_1_sb.toString();
         String term_2 = term_2_sb.toString();
-        String[] pattern = new String[]{"a,a'","b,b'","c,c'","d,d'"};
+
 
         boolean term_1_check_1;
         boolean term_2_check_1;
@@ -147,20 +202,24 @@ public class Literals {
     }
 
 
-    public static int literalSaved(String terms){
-        String[] sb_1 = terms.split("\\+");
-        String[][] sb_2 = new String[sb_1.length][4];
-        for(int i=0;i<sb_2.length;i++){
-            for(int j=0;j<sb_2[i].length;j++){
-            sb_2[i][j]=Split_Command.split_SOP_literal(terms)[j];
+    public static int literalSaved_SOP(String[][] origin_term,String[][] simplified_terms){
+        int ori_num=0;
+        int simp_num=0;
+        for(int i =0;i<origin_term.length;i++){
+            ori_num+=4;
+        }
+        for(int i=0;i<simplified_terms.length;i++){
+            for(int k=0;k<simplified_terms[i].length;k++){
+                if(!Objects.equals(simplified_terms[i][k], "X")){
+                    simp_num+=1;
+                }
             }
         }
 
-        for(int i=0;i<sb_1.length;i++){
-
-        }
-        return 0;
+        return ori_num-simp_num;
     }
+
+
     public enum literal{
         a("a"),
         b("b"),
