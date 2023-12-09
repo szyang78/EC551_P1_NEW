@@ -97,6 +97,88 @@ public class Literals {
         }
         return is1litdiff;
     }
+    public static boolean isdiffbyX1(String[] term1,String[] term2){
+        boolean isdiffbyX=false;
+        int diffbyxnum=0;
+        for(int i=0;i<term1.length;i++){
+            if(Objects.equals(term1[i], term2[i]) && !Objects.equals(term1[i], "X") && !Objects.equals(term2[i], "X")){
+                isdiffbyX=false;
+            }
+            else
+                if( (Objects.equals(term1[i], "X") || Objects.equals(term2[i], "X"))&&(!Objects.equals(term1[i], term2[i])) ){
+                    diffbyxnum+=1;
+                }
+        }
+        if(diffbyxnum==1){
+            isdiffbyX=true;
+        }
+        else{
+            isdiffbyX=false;
+        }
+        return isdiffbyX;
+    }
+
+    public static boolean isdiffbyX2(String[] term1,String[] term2){
+        boolean isdiffbyX2=false;
+        int diffbyxnum=0;
+        for(int i=0;i<term1.length;i++){
+            if(Objects.equals(term1[i], term2[i]) && !Objects.equals(term1[i], "X") && !Objects.equals(term2[i], "X")){
+                isdiffbyX2=false;
+            }
+            else
+            if( (Objects.equals(term1[i], "X") || Objects.equals(term2[i], "X"))&&(!Objects.equals(term1[i], term2[i])) ){
+                diffbyxnum+=1;
+            }
+        }
+        if(diffbyxnum==2){
+            isdiffbyX2=true;
+        }
+        else{
+            isdiffbyX2=false;
+        }
+        return isdiffbyX2;
+    }
+
+    public static boolean isdiffbyX3(String[] term1,String[] term2){
+        boolean isdiffbyX3=false;
+        int diffbyxnum=0;
+        for(int i=0;i<term1.length;i++){
+            if(Objects.equals(term1[i], term2[i]) && !Objects.equals(term1[i], "X") && !Objects.equals(term2[i], "X")){
+                isdiffbyX3=false;
+            }
+            else
+            if( (Objects.equals(term1[i], "X") || Objects.equals(term2[i], "X"))&&(!Objects.equals(term1[i], term2[i])) ){
+                diffbyxnum+=1;
+            }
+        }
+        if(diffbyxnum==3){
+            isdiffbyX3=true;
+        }
+        else{
+            isdiffbyX3=false;
+        }
+        return isdiffbyX3;
+    }
+    public static boolean is1litdiffX(String[] term1,String[] term2){
+        boolean is1litdiffX=false;
+        for(int i =0;i<term1.length;i++){
+            if(Objects.equals(term1[i], term2[i])){
+                is1litdiffX=false;
+            }
+            if(!Objects.equals(term1[i], term2[i]) &&(Objects.equals(term1[i], "X") || Objects.equals(term2[i], "X"))){
+                is1litdiffX=true;
+            }
+        }
+        return is1litdiffX;
+    }
+    public static boolean is2litdiffSOP(String[] term1,String[] term2){
+        boolean is2litdiff=false;
+        int litdiffnum=0;
+        for(int i=0;i<term1.length;i++){
+            
+        }
+        return is2litdiff;
+    }
 
     public static String simplifyLiteral(String[] term1,String[] term2){
         StringBuilder sb = new StringBuilder();
@@ -230,6 +312,14 @@ public class Literals {
         cn("c'"),
         dn("d'");
 
+        public static void main(String[] args){
+            String[] term1 = new String[]{"a","X","X","X"};
+            String[] term2 = new String[]{"a","X","X","X"};
+            System.out.println("It is differ by 2 X"+Literals.isdiffbyX2(term1,term2));
+            System.out.println("It is differ by 1 X"+Literals.isdiffbyX1(term1,term2));
+            System.out.println("It is differ by 3 X"+Literals.isdiffbyX3(term1,term2));
+            System.out.println(Literals.is1litdiffX(term1,term2));
+        }
 
         private final String literal_name;
 

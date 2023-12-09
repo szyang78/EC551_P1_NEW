@@ -33,6 +33,15 @@ public class Canonical_SOP{
         return Arrays.toString(separated_term[1]);
     }
 
+    public static void generateSOPbyCircuit(){
+
+
+    }
+
+    public static String[] mapCircuitToSOP(String circuit){
+
+        return new String[4];
+    }
     public static String SOP_onset(int[] index){
         return "ON-set Number of SOP:"+ index.length;
     }

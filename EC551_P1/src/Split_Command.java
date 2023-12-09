@@ -63,4 +63,53 @@ public class Split_Command {
             }
             return " ";
         }
+
+        public static String[][] circuitToSOP(String args){
+            String[] splitByPlusSign_Parentheses = StringUtils.split(args,"+");
+            for(int i =0;i<splitByPlusSign_Parentheses.length;i++){
+                splitByPlusSign_Parentheses[i]=StringUtils.substringBetween(splitByPlusSign_Parentheses[i],"(",")");
+            }
+            String[][] splitByMultiSign = new String[splitByPlusSign_Parentheses.length][4];
+            for(int i=0;i<splitByMultiSign.length;i++){
+                String[] temp = new String[4];
+                splitByMultiSign[i]=splitByPlusSign_Parentheses[i].split("\\*");
+                for(int k=0;k<splitByMultiSign[i].length;k++){
+                    switch(splitByMultiSign[i][k]){
+                        case "a":temp[0]="a";break;
+                        case "a'":temp[0]="a'";break;
+                        case "b":temp[1]="b";break;
+                        case "b'":temp[1]="b'";break;
+                        case "c":temp[2]="c";break;
+                        case "c'":temp[2]="c'";break;
+                        case "d":temp[3]="d";break;
+                        case "d'":temp[3]="d'";break;
+                    }
+                }
+                for(int k=0;k<temp.length;k++){
+                    if(temp[k]==null){
+                        temp[k]="X";
+                    }
+                }
+                splitByMultiSign[i]=temp;
+            }
+            return splitByMultiSign;
+        }
+
+        public static String[][] sopToSplitSOP(String SOP){
+            String[] splitByParentheses = StringUtils.split(SOP,"+");
+            String[][] splitByMultiSign = new String[splitByParentheses.length][4];
+            for(int i=0;i<splitByMultiSign.length;i++){
+                splitByParentheses[i]=StringUtils.substringBetween(splitByParentheses[i],"(",")");
+            }
+            for(int i=0;i<splitByMultiSign.length;i++){
+                splitByMultiSign[i]=splitByParentheses[i].split("\\*");
+            }
+            return splitByMultiSign;
+        }
+
+        public static void main(String[] args){
+            System.out.println(Arrays.deepToString(Split_Command.sopToSplitSOP(Canonical_SOP.SOP_generation_byIndex(new int[]{1, 5, 6, 12, 13, 14, 15}))));
+
+
+        }
 }

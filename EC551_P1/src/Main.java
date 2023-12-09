@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.StringUtil;
+import org.checkerframework.checker.units.qual.A;
 
 
 public class Main {
@@ -47,11 +48,10 @@ public class Main {
             int[] index = new int[s3.length];
             for (int i = 0; i < index.length; i++) {
                 index[i] = Integer.parseInt(s3[i]);
-
             }
 
           System.out.println("This is the minterm representation:"+Canonical_SOP.SOP_generation_byIndex(index));
-
+/*
             String SOP= Canonical_SOP.SOP_generation_byIndex(index);
 
             String[] splited_SOP= Split_Command.split_SOP(SOP);
@@ -65,14 +65,17 @@ public class Main {
             for(int i =0;i<splited_SOP.length;i++){
                 literal_SOP[i]=Split_Command.split_SOP_literal(splited_SOP[i]);
             }
+*/
+            String[][] lit_SOP = Split_Command.sopToSplitSOP(Canonical_SOP.SOP_generation_byIndex(index));
 
             ArrayList<String[]> sim_SOP = new ArrayList<>();
 
-            ArrayList<String[]> not_sim_SOP = new ArrayList<>(Arrays.asList(literal_SOP));
-
+            ArrayList<String[]> not_sim_SOP = new ArrayList<>(Arrays.asList(lit_SOP));
+            ArrayList<String[]> n_sim_SOP = new ArrayList<>(lit_SOP.length);
+            n_sim_SOP.addAll(Arrays.asList(lit_SOP));
+            System.out.println("This is n_sim_SOP"+ Arrays.toString(n_sim_SOP.get(0)));
+            System.out.println("If the length is equal:"+(lit_SOP.length-n_sim_SOP.size()));
             System.out.println("This is not simplified term:"+ Arrays.toString(not_sim_SOP.get(0)));
-
-
                 for (int j = 1, i = 0; i < not_sim_SOP.size(); i++){
                     while (j < not_sim_SOP.size()) {
                         if (Literals.is1litdiffSOP(not_sim_SOP.get(i), not_sim_SOP.get(j))) {
@@ -85,12 +88,13 @@ public class Main {
                     j=i+1;
                 }
             StringBuilder sb_sim_sop = new StringBuilder();
+                /*
             System.out.println("simplifed"+ Arrays.toString(sim_SOP.get(0)));
             System.out.println("simplifed"+ Arrays.toString(sim_SOP.get(1)));
             System.out.println("simplifed"+ Arrays.toString(sim_SOP.get(2)));
             System.out.println("nsimplifed"+ Arrays.toString(not_sim_SOP.get(0)));
             System.out.println("nsimplifed"+ Arrays.toString(not_sim_SOP.get(1)));
-
+*/
             System.out.println("Not simplified term"+not_sim_SOP.size());
             System.out.println("simplified term"+sim_SOP.size());
 
@@ -130,7 +134,7 @@ public class Main {
 
             int totalPI = sim_tostring.length+not_sim_tostring.length;
             System.out.println("This is the number of Essential PIs:"+totalPI);
-            System.out.println("This is the literal saved:"+Literals.literalSaved_SOP(literal_SOP,sim_tostring));
+            System.out.println("This is the literal saved:"+Literals.literalSaved_SOP(lit_SOP,sim_tostring));
 
           System.out.println("This is inverse of the SOP:"+SOP_Inverse.SOP_Inverse_Generation(index));
           System.out.println("This is inverse of the POS:"+POS_Inverse.POS_Inverse_Generation(index));
@@ -202,7 +206,7 @@ public class Main {
             }
 
             System.out.println("Input 2-level circuit as shown:"+circuit_sb.toString());
-
+            System.out.println(Arrays.deepToString(Split_Command.circuitToSOP(circuit_sb.toString())));
         }
 
        // System.out.println(Literals.simplifyLiteral(Literals.getLiteral("(a'*b*c*d')"),Literals.getLiteral("(a*b*c*d)")));
