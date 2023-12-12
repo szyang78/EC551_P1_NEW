@@ -66,7 +66,7 @@ public class Main {
                 literal_SOP[i]=Split_Command.split_SOP_literal(splited_SOP[i]);
             }
 */
-            String[][] lit_SOP = Split_Command.sopToSplitSOP(Canonical_SOP.SOP_generation_byIndex(index));
+            String[][] lit_SOP = Split_Command.sopToSplitSOP4(Canonical_SOP.SOP_generation_byIndex(index));
 
             ArrayList<String[]> sim_SOP = new ArrayList<>();
 

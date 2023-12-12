@@ -1,6 +1,7 @@
 import org.apache.commons.lang3.*;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Split_Command {
         public static String[] split_SOP(String SOP){
@@ -95,7 +96,7 @@ public class Split_Command {
             return splitByMultiSign;
         }
 
-        public static String[][] sopToSplitSOP(String SOP){
+        public static String[][] sopToSplitSOP4(String SOP){
             String[] splitByParentheses = StringUtils.split(SOP,"+");
             String[][] splitByMultiSign = new String[splitByParentheses.length][4];
             for(int i=0;i<splitByMultiSign.length;i++){
@@ -107,8 +108,86 @@ public class Split_Command {
             return splitByMultiSign;
         }
 
-        public static void main(String[] args){
-            System.out.println(Arrays.deepToString(Split_Command.sopToSplitSOP(Canonical_SOP.SOP_generation_byIndex(new int[]{1, 5, 6, 12, 13, 14, 15}))));
+    public static String[][] sopToSplitSOP6(String SOP){
+        String[] splitByParentheses = StringUtils.split(SOP,"+");
+        String[][] splitByMultiSign = new String[splitByParentheses.length][6];
+        for(int i=0;i<splitByMultiSign.length;i++){
+            splitByParentheses[i]=StringUtils.substringBetween(splitByParentheses[i],"(",")");
+        }
+        for(int i=0;i<splitByMultiSign.length;i++){
+            splitByMultiSign[i]=splitByParentheses[i].split("\\*");
+        }
+        return splitByMultiSign;
+    }
+
+    public static String[][] sopToSplitlut6(String lut6_circuit){
+        String[] splitByParentheses = StringUtils.split(lut6_circuit,"+");
+        String[][] splitByMultiSign = new String[splitByParentheses.length][6];
+        for(int i=0;i<splitByMultiSign.length;i++){
+            splitByParentheses[i]=StringUtils.substringBetween(splitByParentheses[i],"(",")");
+        }
+        for(int i=0;i<splitByMultiSign.length;i++){
+            splitByMultiSign[i]=splitByParentheses[i].split("\\*");
+        }
+        String[][] rearranged_splitbymultiSign=new String[splitByMultiSign.length][6];
+
+        for(int i=0;i<splitByMultiSign.length;i++){
+            for (int k=0;k<splitByMultiSign[i].length;k++){
+                switch(splitByMultiSign[i][k]){
+                    case "a":rearranged_splitbymultiSign[i][0]="a";break;
+                    case "a'":rearranged_splitbymultiSign[i][0]="a'";break;
+                    case "b":rearranged_splitbymultiSign[i][1]="b";break;
+                    case "b'":rearranged_splitbymultiSign[i][1]="b'";break;
+                    case "c":rearranged_splitbymultiSign[i][2]="c";break;
+                    case "c'":rearranged_splitbymultiSign[i][2]="c'";break;
+                    case "d":rearranged_splitbymultiSign[i][3]="d";break;
+                    case "d'":rearranged_splitbymultiSign[i][3]="d'";break;
+                    case "e":rearranged_splitbymultiSign[i][4]="e";break;
+                    case "e'":rearranged_splitbymultiSign[i][4]="e'";break;
+                    case "f":rearranged_splitbymultiSign[i][5]="f";break;
+                    case "f'":rearranged_splitbymultiSign[i][5]="f'";break;
+                }
+                /*
+                if(Objects.equals(splitByMultiSign[i][k], "a") || Objects.equals(splitByMultiSign[i][k], "a'")){
+                    rearranged_splitbymultiSign[i][0]=splitByMultiSign[i][k];
+                }
+                else
+                if(Objects.equals(splitByMultiSign[i][k], "b") || Objects.equals(splitByMultiSign[i][k], "b'")){
+                    rearranged_splitbymultiSign[i][1]=splitByMultiSign[i][k];
+                }
+                else
+                if(Objects.equals(splitByMultiSign[i][k], "c") || Objects.equals(splitByMultiSign[i][k], "c'")){
+                    rearranged_splitbymultiSign[i][2]=splitByMultiSign[i][k];
+                }
+                else
+                if(Objects.equals(splitByMultiSign[i][k], "d") || Objects.equals(splitByMultiSign[i][k], "d'")){
+                    rearranged_splitbymultiSign[i][3]=splitByMultiSign[i][k];
+                }
+                else
+                if(Objects.equals(splitByMultiSign[i][k], "e") || Objects.equals(splitByMultiSign[i][k], "e'")){
+                    rearranged_splitbymultiSign[i][4]=splitByMultiSign[i][k];
+                }
+                else
+                if(Objects.equals(splitByMultiSign[i][k], "f") || Objects.equals(splitByMultiSign[i][k], "f'")){
+                    rearranged_splitbymultiSign[i][5]=splitByMultiSign[i][k];
+                }
+
+                 */
+            }
+        }
+
+        for(int i=0;i<rearranged_splitbymultiSign.length;i++){
+            for(int k=0;k<rearranged_splitbymultiSign[i].length;k++){
+                if(rearranged_splitbymultiSign[i][k]==null){
+                    rearranged_splitbymultiSign[i][k]="X";
+                }
+            }
+        }
+        return rearranged_splitbymultiSign;
+    }
+
+    public static void main(String[] args){
+            System.out.println(Arrays.deepToString(Split_Command.sopToSplitSOP4(Canonical_SOP.SOP_generation_byIndex(new int[]{1, 5, 6, 12, 13, 14, 15}))));
 
 
         }
