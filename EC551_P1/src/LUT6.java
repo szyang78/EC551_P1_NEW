@@ -450,7 +450,7 @@ public class LUT6 {
                 }
             }
 
-            System.out.println("This is simplified version:"+circuit_sb_simp.toString());
+           // System.out.println("This is simplified version:"+circuit_sb_simp.toString());
             //end of lut4 "read" operation
         }
 
