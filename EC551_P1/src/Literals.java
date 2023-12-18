@@ -1,5 +1,6 @@
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -7,42 +8,318 @@ import java.util.regex.Pattern;
 
 public class Literals {
 
-    public static String[] getLiteral_MIN_MAX(String term){
-
-        String sb_1 = StringUtils.substringBetween(term,"(",")");
-        String[] literal= sb_1.split("\\*");
-        System.out.println(Arrays.toString(literal));
-
-        return literal;
-    }
-
-    public static String[] getLiteral_SOP(String term){
-        String sb_1 = StringUtils.substringBetween(term,"(",")");
-        String[] literal= sb_1.split("\\*");
-        String[] returned_literal = new String[4];
-
-        for (int i=0;i<literal.length;i++){
-            if(Objects.equals(literal[i], "a") || Objects.equals(literal[i], "a'")){
-                returned_literal[0]=literal[i];
-            }
-            if(Objects.equals(literal[i], "b") || Objects.equals(literal[i], "b'")){
-                returned_literal[1]=literal[i];
-            }
-            if(Objects.equals(literal[i], "c") || Objects.equals(literal[i], "c'")){
-                returned_literal[2]=literal[i];
-            }
-            if(Objects.equals(literal[i], "c") || Objects.equals(literal[i], "c'")){
-                returned_literal[3]=literal[i];
+    public static String[] map6litto6num(String[] lit){
+        String[] num= new String[6];
+        for(int i=0;i<num.length;i++){
+            switch (lit[i]){
+                case "a","b","c","d","e","f":num[i]="1";break;
+                case "a'","b'","c'","d'","e'","f'":num[i]="0";break;
+                case "X":num[i]="X";break;
             }
         }
-        for(int i=0;i<returned_literal.length;i++){
-            if(returned_literal[i]==null){
-                returned_literal[i]="X";
+        return num;
+    }
+
+    public static String map4numto4litstring(String[] num){
+        StringBuilder sb = new StringBuilder();
+        String[] sop = Literals.map4numto4sop(num);
+        sb.append("(");
+        for(int i=0;i<sop.length;i++){
+            if(i<sop.length-1){
+                if(!Objects.equals(sop[i], "X")){
+                    sb.append(sop[i]);
+                    sb.append("*");
+                }
+                }
+            if(i==sop.length-1){
+                if(!Objects.equals(sop[i], "X")){
+                    sb.append(sop[i]);
+                }
+            }
+            }
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public static String map6numto6litstring(String[] num){
+        StringBuilder sb = new StringBuilder();
+        String[] sop = Literals.map6numto6sop(num);
+        sb.append("(");
+        if( !Objects.equals(sop[0],"X")) {
+            sb.append(sop[0]);
+        }
+        if(!Objects.equals(sop[1],"X")){
+            if(!Objects.equals(sop[0],"X")){
+            sb.append("*");
+            }
+            sb.append(sop[1]);
+        }
+        if(!Objects.equals(sop[2],"X")){
+            if(!Objects.equals(sop[1],"X")){
+                sb.append("*");
+            }
+            sb.append(sop[2]);
+        }
+        if(!Objects.equals(sop[3],"X")){
+            if(!Objects.equals(sop[2],"X")){
+                sb.append("*");
+            }
+            sb.append(sop[3]);
+        }
+        if(!Objects.equals(sop[4],"X")){
+            sb.append("*");
+            sb.append(sop[4]);
+        }
+        if(!Objects.equals(sop[5],"X")){
+            sb.append("*");
+            sb.append(sop[5]);
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+
+    public static String map4litsoptostring(String[] sop){
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        /*
+        for(int i=0;i<sop.length;i++){
+            if(i<sop.length-1) {
+                if (!Objects.equals(sop[i], "X")) {
+                    sb.append(sop[i]);
+                    if(!Objects.equals(sop[i+1],"X")){
+                    sb.append("*");
+                    }
+                }
+            }
+            if(i==sop.length-1){
+                if (!Objects.equals(sop[i], "X")) {
+                    sb.append(sop[i]);
+                }
             }
         }
+         */
+        if( !Objects.equals(sop[0],"X")) {
+            sb.append(sop[0]);
+        }
+        if(!Objects.equals(sop[1],"X")){
+            if(!Objects.equals(sop[0],"X")){
+                sb.append("*");
+            }
+            sb.append(sop[1]);
+        }
+        if(!Objects.equals(sop[2],"X")){
 
-        return returned_literal;
+                sb.append("*");
+
+            sb.append(sop[2]);
+        }
+        if(!Objects.equals(sop[3],"X")){
+
+                sb.append("*");
+
+            sb.append(sop[3]);
+        }
+        sb.append(")");
+        return sb.toString();
     }
+
+    public static String map6litsoptostring(String[] sop){
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        /*
+        for(int i=0;i<sop.length;i++){
+            if(i<sop.length-1) {
+                if (!Objects.equals(sop[i], "X")) {
+                    sb.append(sop[i]);
+                    if(!Objects.equals(sop[i+1],"X")){
+                    sb.append("*");
+                    }
+                }
+            }
+            if(i==sop.length-1){
+                if (!Objects.equals(sop[i], "X")) {
+                    sb.append(sop[i]);
+                }
+            }
+        }
+         */
+        if( !Objects.equals(sop[0],"X")) {
+            sb.append(sop[0]);
+        }
+        if(!Objects.equals(sop[1],"X")){
+            if(!Objects.equals(sop[0],"X")){
+                sb.append("*");
+            }
+            sb.append(sop[1]);
+        }
+        if(!Objects.equals(sop[2],"X")){
+
+            sb.append("*");
+
+            sb.append(sop[2]);
+        }
+        if(!Objects.equals(sop[3],"X")){
+
+            sb.append("*");
+
+            sb.append(sop[3]);
+        }
+        if(!Objects.equals(sop[4],"X")){
+
+            sb.append("*");
+
+            sb.append(sop[4]);
+        }
+        if(!Objects.equals(sop[5],"X")){
+
+            sb.append("*");
+
+            sb.append(sop[5]);
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+    public static String[] map4numto4sop(String[] num){
+        String[] sop = new String[4];
+        for(int i=0;i<num.length;i++){
+            switch(i){
+                case 0:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="a";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="a'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 1:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="b";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="b'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 2:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="c";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="c'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 3:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="d";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="d'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+            }
+        }
+        return sop;
+    }
+
+    public static String[] map6numto6sop(String[] num){
+        String[] sop = new String[6];
+        for(int i=0;i<num.length;i++){
+            switch(i){
+                case 0:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="a";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="a'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 1:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="b";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="b'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 2:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="c";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="c'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 3:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="d";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="d'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 4:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="e";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="e'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+                case 5:
+                    if(Objects.equals(num[i], "1")){
+                        sop[i]="f";
+                    }
+                    if(Objects.equals(num[i], "0")){
+                        sop[i]="f'";
+                    }
+                    if(Objects.equals(num[i], "X")){
+                        sop[i]="X";
+                    }
+                    break;
+            }
+        }
+        return sop;
+    }
+
+    public static String[] map4sopto4num(String[] term){
+        String[] soptonum = new String[4];
+        for(int i=0;i<soptonum.length;i++){
+            switch(term[i]){
+                case "a","b","c","d": soptonum[i]="1";break;
+                case "a'","b'","c'","d'":soptonum[i]="0";break;
+                case "X":soptonum[i]="X";break;
+            }
+        }
+        return soptonum;
+    }
+
+
     public static String[] simplify_1litdiffSOP(String[] term1,String[] term2){
         StringBuilder sb = new StringBuilder();
         String[] pattern = new String[]{"a,a'","b,b'","c,c'","d,d'"};
@@ -80,6 +357,49 @@ public class Literals {
             }
         }
         return "("+sb.toString()+")";
+    }
+
+    public static int numof1slit(String[] term){
+        int num=0;
+        for(int i=0;i<term.length;i++){
+            switch(term[i]){
+                case "a","b","c","d":num+=1;break;
+            }
+        }
+        return num;
+    }
+
+    public static String[][] mapCircuitToSOPNum(String circuit){
+        String[][] circuit_sop = Split_Command.circuitToSOP(circuit);
+        return Literals.mapsop4tonum(circuit_sop);
+    }
+    public static String[][] mapsop4tonum(String[][] lit_sop){
+        String[][] map4num = new String[lit_sop.length][4];
+        for(int i=0;i<lit_sop.length;i++){
+        map4num[i]=Literals.mapsoptonum(lit_sop[i]);
+        }
+        return map4num;
+    }
+    public static String[] mapsoptonum(String[] term){
+        String[] mapsoptonum=new String[4];
+        for(int i=0;i<mapsoptonum.length;i++){
+            switch(term[i]){
+                case "a","b","c","d": mapsoptonum[i]="1";break;
+                case "a'","b'","c'","d'":mapsoptonum[i]="0";break;
+                case "X":mapsoptonum[i]="X";break;
+            }
+        }
+        return  mapsoptonum;
+    }
+
+    public static int numof1s(String[] term){
+        int num=0;
+        for(int i=0;i<term.length;i++){
+            if (term[i].equals("1")) {
+                num += 1;
+            }
+        }
+        return num;
     }
     public static boolean is1litdiffSOP(String[] term1,String[] term2){
         boolean is1litdiff;
@@ -180,108 +500,6 @@ public class Literals {
         return is2litdiff;
     }
 
-    public static String simplifyLiteral(String[] term1,String[] term2){
-        StringBuilder sb = new StringBuilder();
-        String[] pattern = new String[]{"a,a'","b,b'","c,c'","d,d'"};
-        String[][] term_compare = new String[4][4];
-        StringBuilder term_1_sb = new StringBuilder();
-        StringBuilder term_2_sb = new StringBuilder();
-        term_1_sb.append(Arrays.toString(term1));
-        term_2_sb.append(Arrays.toString(term2));
-        int i =0;
-        int j=0;
-
-       while(i<4){
-           term_compare[0][i]=term1[i];
-           i++;
-       }
-        while(j<4){
-            term_compare[1][j]=term1[j];
-            j++;
-        }
-
-        String term_1 = term_1_sb.toString();
-        String term_2 = term_2_sb.toString();
-
-
-        boolean term_1_check_1;
-        boolean term_2_check_1;
-        boolean term_1_check_2;
-        boolean term_2_check_2;
-
-        for(int k=0;k<pattern.length;k++){
-            switch(pattern[k]){
-                case "a,a'":
-                term_1_check_1=StringUtils.contains(term_1,"a");
-                term_2_check_1=StringUtils.contains(term_2,"a'");
-                term_1_check_2=StringUtils.contains(term_1,"a'");
-                term_2_check_2=StringUtils.contains(term_2,"a");
-                if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
-                {
-                term_compare[0][0]="X";
-                term_compare[1][0]="X";
-                }
-                break;
-                case "b,b'":
-                    term_1_check_1=StringUtils.contains(term_1,"b");
-                    term_2_check_1=StringUtils.contains(term_2,"b'");
-                    term_1_check_2=StringUtils.contains(term_1,"b'");
-                    term_2_check_2=StringUtils.contains(term_2,"b");
-                    if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
-                    {
-                        term_compare[0][1]="X";
-                        term_compare[1][1]="X";
-                    }
-                    break;
-                case "c,c'":
-                    term_1_check_1=StringUtils.contains(term_1,"c");
-                    term_2_check_1=StringUtils.contains(term_2,"c'");
-                    term_1_check_2=StringUtils.contains(term_1,"c'");
-                    term_2_check_2=StringUtils.contains(term_2,"c");
-                    if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
-                    {
-                        term_compare[0][2]="X";
-                        term_compare[1][2]="X";
-                    }
-                    break;
-                case "d,d'":
-                    term_1_check_1=StringUtils.contains(term_1,"d");
-                    term_2_check_1=StringUtils.contains(term_2,"d'");
-                    term_1_check_2=StringUtils.contains(term_1,"d'");
-                    term_2_check_2=StringUtils.contains(term_2,"d");
-                    if( (term_1_check_1 && term_2_check_1) || (term_1_check_2&&term_2_check_2))
-                    {
-                        term_compare[0][3]="X";
-                        term_compare[1][3]="X";
-                    }
-                    break;
-            }
-        }
-
-        StringBuilder final_sb = new StringBuilder();
-
-        for(int k=0;k<term_compare.length;k++){
-            if(!Objects.equals(term_compare[0][k], "X")){
-            final_sb.append(term_compare[0][k]);
-            if(k<term_compare[0].length-1){
-            final_sb.append("*");
-            }
-            }
-        }
-
-        final_sb.append(" + ");
-        for(int k=0;k<term_compare.length;k++){
-            if(!Objects.equals(term_compare[1][k], "X")){
-                final_sb.append(term_compare[1][k]);
-                if(k<term_compare[1].length-1){
-                    final_sb.append("*");
-                }
-            }
-        }
-
-
-        return final_sb.toString();
-    }
 
 
     public static int literalSaved_SOP(String[][] origin_term,String[][] simplified_terms){
@@ -297,10 +515,127 @@ public class Literals {
                 }
             }
         }
-
         return ori_num-simp_num;
     }
+    public static boolean isonlydiffbyX(String[] term1, String[] term2) {
+        boolean isdiffbyX = false;
+        for (int i = 0; i < term1.length; i++) {
+            if (Objects.equals(term1[i], term2[i])) {
+                if (Objects.equals(term1[i], "X") && !Objects.equals(term2[i], "X")) {
+                    isdiffbyX = true;
+                }
+            }
+        }
+        return isdiffbyX;
+    }
 
+    public static boolean is1diff(String[] term1, String[] term2) {
+        boolean is1diff;
+        int diffnum = 0;
+        for (int i = 0; i < term1.length; i++) {
+            if (!Objects.equals(term1[i], term2[i])) {
+                diffnum += 1;
+            }
+        }
+        is1diff = (diffnum == 1);
+        return is1diff;
+    }
+
+    public static boolean isnodiff(String[] term1, String[] term2) {
+        boolean isnodiff = false;
+        for (int i = 0; i < term1.length; i++) {
+            isnodiff = Objects.equals(term1[i], term2[i]);
+        }
+        return isnodiff;
+    }
+
+    public static int num_of_1s(String[] term) {
+        int num = 0;
+        for (int i = 0; i < term.length; i++) {
+            if (Objects.equals(term[i], "1")) {
+                num += 1;
+            }
+        }
+        return num;
+    }
+
+    public static String[] simplify_if1diff(String[] term1, String[] term2) {
+        String[] simplified_term = new String[4];
+        if (Literals.is1diff(term1, term2)) {
+            for (int i = 0; i < simplified_term.length; i++) {
+                if (Objects.equals(term1[i], term2[i])) {
+                    simplified_term[i] = term1[i];
+                } else {
+                    simplified_term[i] = "X";
+                }
+            }
+        }
+        return simplified_term;
+    }
+
+    public static String[] simplify_ifonlydiffbyX(String[] term1, String[] term2) {
+        String[] simplified_term = new String[4];
+        if (Literals.isonlydiffbyX(term1, term2)) {
+            for (int i = 0; i < simplified_term.length; i++) {
+                if (!Objects.equals(term1[i], "X")) {
+                    simplified_term[i] = term1[i];
+                }
+            }
+        }
+        if(simplified_term[0]==null){
+            simplified_term[0]="X";
+        }
+        if(simplified_term[1]==null){
+            simplified_term[1]="X";
+        }
+        if(simplified_term[2]==null){
+            simplified_term[2]="X";
+        }
+        if(simplified_term[3]==null){
+            simplified_term[3]="X";
+        }
+        return simplified_term;
+    }
+    public static String[] numtosop(String[] term){
+        String[] numtosop = new String[4];
+        if(Objects.equals(term[0], "1")){
+            numtosop[0]="a";
+        }
+        if(Objects.equals(term[0], "0")){
+            numtosop[0]="a'";
+        }
+        if(Objects.equals(term[0], "X")){
+            numtosop[0]="X";
+        }
+        if(Objects.equals(term[1], "1")){
+            numtosop[1]="b";
+        }
+        if(Objects.equals(term[1], "0")){
+            numtosop[1]="b'";
+        }
+        if(Objects.equals(term[1], "X")){
+            numtosop[1]="X";
+        }
+        if(Objects.equals(term[2], "1")){
+            numtosop[2]="c";
+        }
+        if(Objects.equals(term[2], "0")){
+            numtosop[2]="c'";
+        }
+        if(Objects.equals(term[2], "X")){
+            numtosop[2]="X";
+        }
+        if(Objects.equals(term[3], "1")){
+            numtosop[3]="d";
+        }
+        if(Objects.equals(term[3], "0")){
+            numtosop[3]="d'";
+        }
+        if(Objects.equals(term[3], "X")){
+            numtosop[3]="X";
+        }
+        return numtosop;
+    }
 
     public enum literal{
         a("a"),
@@ -312,15 +647,18 @@ public class Literals {
         cn("c'"),
         dn("d'");
 
+        /*
         public static void main(String[] args){
             String[] term1 = new String[]{"a","X","X","X"};
             String[] term2 = new String[]{"a","X","X","X"};
-            System.out.println("It is differ by 2 X"+Literals.isdiffbyX2(term1,term2));
-            System.out.println("It is differ by 1 X"+Literals.isdiffbyX1(term1,term2));
-            System.out.println("It is differ by 3 X"+Literals.isdiffbyX3(term1,term2));
-            System.out.println(Literals.is1litdiffX(term1,term2));
+            String[] term3 = Literals.numtosop(new String[]{"1","0","X","1"});
+            //System.out.println("It is differ by 2 X"+Literals.isdiffbyX2(term1,term2));
+            //System.out.println("It is differ by 1 X"+Literals.isdiffbyX1(term1,term2));
+           // System.out.println("It is differ by 3 X"+Literals.isdiffbyX3(term1,term2));
+            //System.out.println(Literals.is1litdiffX(term1,term2));
+            System.out.println(Arrays.toString(term3));
         }
-
+*/
         private final String literal_name;
 
         literal(String literal_name){
@@ -329,5 +667,35 @@ public class Literals {
         private String getLiteral_name(){
             return this.literal_name;
         }
+
+    }
+
+    public static boolean ifisnull(String[] term){
+        boolean isnull=false;
+        for(int i=0;i<term.length;i++){
+            if(Objects.equals(term[i],"X")){
+                isnull=true;
+            }
+            else{
+                isnull=false;
+            }
+        }
+        return isnull;
+    }
+    public static void main(String[] args){
+        String[] term1 = new String[]{"a","X","X","X"};
+        String[] term2 = new String[]{"a","X","X","X"};
+        String[] term = new String[4];
+        term[0]="1";
+        term[1]="0";
+        term[2]="X";
+        term[3]="1";
+        String[] term3 = Literals.numtosop(term);
+        //System.out.println("It is differ by 2 X"+Literals.isdiffbyX2(term1,term2));
+        //System.out.println("It is differ by 1 X"+Literals.isdiffbyX1(term1,term2));
+        // System.out.println("It is differ by 3 X"+Literals.isdiffbyX3(term1,term2));
+        //System.out.println(Literals.is1litdiffX(term1,term2));
+        System.out.println(Arrays.toString(term3));
+        System.out.println(Literals.map4numto4litstring(term));
     }
 }

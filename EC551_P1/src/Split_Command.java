@@ -120,6 +120,11 @@ public class Split_Command {
         return splitByMultiSign;
     }
 
+    /**
+     * Input a circuit
+     * @param lut6_circuit
+     * @return a string array that split the circuit into arrays. use X to represent non-existence literals
+     */
     public static String[][] sopToSplitlut6(String lut6_circuit){
         String[] splitByParentheses = StringUtils.split(lut6_circuit,"+");
         String[][] splitByMultiSign = new String[splitByParentheses.length][6];
@@ -188,7 +193,6 @@ public class Split_Command {
 
     public static void main(String[] args){
             System.out.println(Arrays.deepToString(Split_Command.sopToSplitSOP4(Canonical_SOP.SOP_generation_byIndex(new int[]{1, 5, 6, 12, 13, 14, 15}))));
-
 
         }
 }
